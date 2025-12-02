@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Math Tools & 体系数学ハブ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- デザイン用CSS（中身は後で作る） -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ヘッダー -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="site-title">Math Tools &amp; 体系数学ハブ</div>
+        <nav class="site-nav">
+          <a href="#tools">ツール</a>
+          <a href="#topics">単元一覧</a>
+          <a href="#about">このサイトについて</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- ヒーロー（トップ） -->
+      <section id="hero" class="hero">
+        <div class="hero-inner">
+          <h1>電卓・単位換算・体系数学をひとつに。</h1>
+          <p>
+            テスト前の確認や、日ごろの学習に。<br />
+            電卓・単位換算ツールと、中学数学の単元をまとめた自分専用ポータルサイト。
+          </p>
+          <a href="#tools" class="hero-button">ツールを使ってみる</a>
+        </div>
+      </section>
+
+      <!-- セクション1: ツール -->
+      <section id="tools" class="section section-tools">
+        <h2>ツール</h2>
+        <p class="section-lead">
+          ここから電卓や単位換算ツールにアクセスできます。最初はメニューだけ作っておき、あとから機能を追加していきます。
+        </p>
+
+        <div class="card-grid">
+          <!-- 電卓 -->
+          <article class="card tool-card" data-tool="calculator">
+            <h3>電卓（四則演算）</h3>
+            <p>＋ − × ÷ の基本的な計算用ツール。</p>
+            <button class="card-button" type="button">
+              開く（今後実装予定）
+            </button>
+          </article>
+
+          <!-- 分数・小数・百分率 -->
+          <article class="card tool-card" data-tool="fraction-decimal-percent">
+            <h3>分数 ⇔ 小数 ⇔ ％ 変換</h3>
+            <p>0.75 ⇔ 3/4 ⇔ 75% などの変換をサポート。</p>
+            <button class="card-button" type="button">
+              開く（今後実装予定）
+            </button>
+          </article>
+
+          <!-- 長さの単位換算 -->
+          <article class="card tool-card" data-tool="length-converter">
+            <h3>長さの単位換算</h3>
+            <p>mm / cm / m / km の変換。</p>
+            <button class="card-button" type="button">
+              開く（今後実装予定）
+            </button>
+          </article>
+
+          <!-- 面積の単位換算 -->
+          <article class="card tool-card" data-tool="area-converter">
+            <h3>面積の単位換算</h3>
+            <p>cm² / m² / km² などの面積換算。</p>
+            <button class="card-button" type="button">
+              開く（今後実装予定）
+            </button>
+          </article>
+
+          <!-- 体積の単位換算 -->
+          <article class="card tool-card" data-tool="volume-converter">
+            <h3>体積・容積の単位換算</h3>
+            <p>mL / L / m³ などの換算。</p>
+            <button class="card-button" type="button">
+              開く（今後実装予定）
+            </button>
+          </article>
+
+          <!-- 質量の単位換算 -->
+          <article class="card tool-card" data-tool="mass-converter">
+            <h3>質量の単位換算</h3>
+            <p>g / kg の換算。</p>
+            <button class="card-button" type="button">
+              開く（今後実装予定）
+            </button>
+          </article>
+
+          <!-- 速さの単位換算 -->
+          <article class="card tool-card" data-tool="speed-converter">
+            <h3>速さの単位換算</h3>
+            <p>m/s ⇔ km/h の変換。</p>
+            <button class="card-button" type="button">
+              開く（今後実装予定）
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <!-- セクション2: 体系数学 単元一覧 -->
+      <section id="topics" class="section section-topics">
+        <h2>体系数学 単元一覧</h2>
+        <p class="section-lead">
+          中学数学の主な単元をまとめています。詳しい内容ページや公式の整理は、今後少しずつ追加していきます。
+        </p>
+
+        <!-- 学年タブ風ボタン（切り替えはJSで後から実装してもOK） -->
+        <div class="grade-tabs">
+          <button class="grade-tab is-active" data-grade="grade1" type="button">
+            中1
+          </button>
+          <button class="grade-tab" data-grade="grade2" type="button">
+            中2
+          </button>
+          <button class="grade-tab" data-grade="grade3" type="button">
+            中3
+          </button>
+        </div>
+
+        <!-- 中1 -->
+        <div class="grade-section" data-grade="grade1">
+          <h3>中1の単元</h3>
+          <div class="card-grid">
+            <article class="card topic-card">
+              <h4>数と式（正負の数・文字と式）</h4>
+              <p>正負の数の計算、文字を使った式の表し方、式の基本操作。</p>
+            </article>
+
+            <article class="card topic-card">
+              <h4>方程式・割合</h4>
+              <p>1次方程式、比と割合、速さ・時間・道のりの文章題など。</p>
+            </article>
+
+            <article class="card topic-card">
+              <h4>図形の基礎</h4>
+              <p>角・平行な直線・三角形・四角形の性質、作図の基本。</p>
+            </article>
+
+            <article class="card topic-card">
+              <h4>資料の整理</h4>
+              <p>度数分布、平均・中央値・最頻値など、データの見方。</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- 中2 -->
+        <div class="grade-section" data-grade="grade2" hidden>
+          <h3>中2の単元</h3>
+          <div class="card-grid">
+            <article class="card topic-card">
+              <h4>式の計算（単項式・多項式）</h4>
+              <p>文字式の加減・乗除、乗法の公式の入口 ((a+b)² など)。</p>
+            </article>
+
+            <article class="card topic-card">
+              <h4>連立方程式</h4>
+              <p>代入法・加減法、文章題の立式と解き方。</p>
+            </article>
+
+            <article class="card topic-card">
+              <h4>一次関数</h4>
+              <p>y = ax + b の形、グラフ、変化の割合（傾き）の意味。</p>
+            </article>
+
+            <article class="card topic-card">
+              <h4>図形の性質と合同</h4>
+              <p>合同条件、平行四辺形・二等辺三角形などの性質。</p>
+            </article>
+
+            <article class="card topic-card">
+              <h4>場合の数と確率</h4>
+              <p>樹形図、表を使った場合の数、確率の基本的な考え方。</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- 中3 -->
+        <div class="grade-section" data-grade="grade3" hidden>
+          <h3>中3の単元</h3>
+          <div class="card-grid">
+            <article class="card topic-card">
+              <h4>平方根</h4>
+              <p>平方根の意味、近似値、√の計算。</p>
+            </article>
+
+            <article class="card topic-card">
+              <h4>因数分解・二次方程式</h4>
+              <p>(x + a)(x + b) などの因数分解、二次方程式とその解。</p>
+            </article>
+
+            <article class="card topic-card">
+              <h4>二乗に比例する関数（二次関数）</h4>
+              <p>y = ax² のグラフと性質、一次関数とのちがい。</p>
+            </article>
+
+            <article class="card topic-card">
+              <h4>相似と三平方の定理</h4>
+              <p>図形の相似条件、辺の比と面積比、三平方の定理の活用。</p>
+            </article>
+
+            <article class="card topic-card">
+              <h4>データの活用・標本調査</h4>
+              <p>母集団と標本、平均・分散など（必要に応じて扱う）。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- セクション3: サイトについて -->
+      <section id="about" class="section section-about">
+        <h2>このサイトについて</h2>
+        <p>
+          このページは、電卓・単位換算ツールと中学数学の単元をまとめて、勉強しやすくするための自作サイトです。<br />
+          まずはメニューと単元一覧だけを作り、少しずつ機能や詳しい解説を追加していくことを想定しています。
+        </p>
+      </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="site-footer">
+      <p>自分用 学習サイト / Math Tools &amp; 体系数学ハブ v0.1</p>
+      <p>&copy; 2025</p>
+    </footer>
+
+    <!-- 挙動用JS（タブ切り替えやツールの実装を後で書く） -->
+    <script src="js/main.js"></script>
+  </body>
+</html>
