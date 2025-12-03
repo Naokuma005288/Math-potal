@@ -44,34 +44,192 @@
           <!-- 電卓 -->
           <article class="card tool-card" data-tool="calculator">
             <h3>電卓（四則演算）</h3>
-            <p>＋ − × ÷ とかかっこ () を含む基本的な計算用ツール。</p>
+            <p>ボタン操作と直接入力の両方に対応した、使いやすい電卓。</p>
             <button class="card-button js-toggle-tool" type="button">
               開く
             </button>
             <div class="tool-body" hidden>
-              <div class="tool-row">
-                <label for="calculator-expression">計算式</label>
-                <input
-                  id="calculator-expression"
-                  type="text"
-                  inputmode="decimal"
-                  placeholder="例: 1+2*3 / (4-0.5)"
-                />
-                <small>数字と + - * / ( ) . が使えます。</small>
+              <div class="calculator-layout">
+                <div class="calculator-display">
+                  <div
+                    class="calculator-expression"
+                    id="calculator-expression-display"
+                  >
+                    0
+                  </div>
+                  <div
+                    class="calculator-result"
+                    id="calculator-result-display"
+                  >
+                    = 0
+                  </div>
+                </div>
+
+                <div class="calculator-keys">
+                  <!-- 1行目 -->
+                  <button
+                    class="calculator-key utility"
+                    type="button"
+                    data-action="clear"
+                  >
+                    AC
+                  </button>
+                  <button
+                    class="calculator-key utility"
+                    type="button"
+                    data-action="delete"
+                  >
+                    DEL
+                  </button>
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="("
+                  >
+                    (
+                  </button>
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value=")"
+                  >
+                    )
+                  </button>
+
+                  <!-- 2行目 -->
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="7"
+                  >
+                    7
+                  </button>
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="8"
+                  >
+                    8
+                  </button>
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="9"
+                  >
+                    9
+                  </button>
+                  <button
+                    class="calculator-key operator"
+                    type="button"
+                    data-value="/"
+                  >
+                    ÷
+                  </button>
+
+                  <!-- 3行目 -->
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="4"
+                  >
+                    4
+                  </button>
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="5"
+                  >
+                    5
+                  </button>
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="6"
+                  >
+                    6
+                  </button>
+                  <button
+                    class="calculator-key operator"
+                    type="button"
+                    data-value="*"
+                  >
+                    ×
+                  </button>
+
+                  <!-- 4行目 -->
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="1"
+                  >
+                    1
+                  </button>
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="2"
+                  >
+                    2
+                  </button>
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="3"
+                  >
+                    3
+                  </button>
+                  <button
+                    class="calculator-key operator"
+                    type="button"
+                    data-value="-"
+                  >
+                    −
+                  </button>
+
+                  <!-- 5行目 -->
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="0"
+                  >
+                    0
+                  </button>
+                  <button
+                    class="calculator-key"
+                    type="button"
+                    data-value="."
+                  >
+                    .
+                  </button>
+                  <button
+                    class="calculator-key equal"
+                    type="button"
+                    data-action="eval"
+                  >
+                    =
+                  </button>
+                  <button
+                    class="calculator-key operator"
+                    type="button"
+                    data-value="+"
+                  >
+                    ＋
+                  </button>
+                </div>
+
+                <div class="tool-row calculator-input-row">
+                  <label for="calculator-expression">
+                    式を直接編集したい場合
+                  </label>
+                  <input
+                    id="calculator-expression"
+                    type="text"
+                    inputmode="decimal"
+                    placeholder="例: (1+2)*3/4"
+                  />
+                  <small>Enterキーで計算できます。× ÷ は * / で入力。</small>
+                </div>
               </div>
-              <button
-                id="calculator-eval-button"
-                class="primary-button"
-                type="button"
-              >
-                計算する
-              </button>
-              <div class="tool-result" id="calculator-result">
-                結果：-
-              </div>
-              <p class="tool-note">
-                ※ 式が長くなりすぎると誤差が出ることがあります。
-              </p>
             </div>
           </article>
 
@@ -401,24 +559,48 @@
         <div class="grade-section" data-grade="grade1">
           <h3>中1の単元</h3>
           <div class="card-grid">
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m1-numbers">
               <h4>数と式（正負の数・文字と式）</h4>
               <p>正負の数の計算、文字を使った式の表し方、式の基本操作。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
 
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m1-equations">
               <h4>方程式・割合</h4>
               <p>1次方程式、比と割合、速さ・時間・道のりの文章題など。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
 
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m1-geometry">
               <h4>図形の基礎</h4>
               <p>角・平行な直線・三角形・四角形の性質、作図の基本。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
 
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m1-data">
               <h4>資料の整理</h4>
               <p>度数分布、平均・中央値・最頻値など、データの見方。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
           </div>
         </div>
@@ -427,29 +609,59 @@
         <div class="grade-section" data-grade="grade2" hidden>
           <h3>中2の単元</h3>
           <div class="card-grid">
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m2-polynomials">
               <h4>式の計算（単項式・多項式）</h4>
               <p>文字式の加減・乗除、乗法の公式の入口 ((a+b)² など)。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
 
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m2-simultaneous">
               <h4>連立方程式</h4>
               <p>代入法・加減法、文章題の立式と解き方。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
 
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m2-linear-func">
               <h4>一次関数</h4>
               <p>y = ax + b の形、グラフ、変化の割合（傾き）の意味。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
 
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m2-congruence">
               <h4>図形の性質と合同</h4>
               <p>合同条件、平行四辺形・二等辺三角形などの性質。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
 
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m2-probability">
               <h4>場合の数と確率</h4>
               <p>樹形図、表を使った場合の数、確率の基本的な考え方。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
           </div>
         </div>
@@ -458,47 +670,97 @@
         <div class="grade-section" data-grade="grade3" hidden>
           <h3>中3の単元</h3>
           <div class="card-grid">
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m3-square-root">
               <h4>平方根</h4>
               <p>平方根の意味、近似値、√の計算。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
 
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m3-quadratic">
               <h4>因数分解・二次方程式</h4>
               <p>(x + a)(x + b) などの因数分解、二次方程式とその解。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
 
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m3-parabola">
               <h4>二乗に比例する関数（二次関数）</h4>
               <p>y = ax² のグラフと性質、一次関数とのちがい。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
 
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m3-similarity">
               <h4>相似と三平方の定理</h4>
               <p>図形の相似条件、辺の比と面積比、三平方の定理の活用。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
 
-            <article class="card topic-card">
+            <article class="card topic-card" data-topic-id="m3-statistics">
               <h4>データの活用・標本調査</h4>
               <p>母集団と標本、平均・分散など（必要に応じて扱う）。</p>
+              <button
+                class="secondary-button topic-detail-button"
+                type="button"
+              >
+                詳しく見る（準備中）
+              </button>
             </article>
           </div>
         </div>
       </section>
+
+      <!-- 単元詳細モーダル（土台） -->
+      <div id="topic-modal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-dialog">
+          <button class="modal-close" type="button" aria-label="閉じる">
+            ×
+          </button>
+          <h3 id="topic-modal-title">単元タイトル</h3>
+          <p id="topic-modal-summary" class="modal-summary">
+            この単元の概要がここに入ります（準備中）。
+          </p>
+          <div class="modal-body">
+            <p>
+              ここに公式やポイント、例題などの詳細を今後追加していけるようにしています。
+            </p>
+            <p class="modal-note">※ 現在は土台だけの状態です。</p>
+          </div>
+        </div>
+      </div>
 
       <!-- セクション3: サイトについて -->
       <section id="about" class="section section-about">
         <h2>このサイトについて</h2>
         <p>
           このページは、電卓・単位換算ツールと中学数学の単元をまとめて、勉強しやすくするための自作サイトです。<br />
-          まずはメニューと単元一覧だけを作り、少しずつ機能や詳しい解説を追加していくことを想定しています。
+          まずはツールと単元一覧を整え、少しずつ詳しい解説や例題を追加していくことを想定しています。
         </p>
       </section>
     </main>
 
     <!-- フッター -->
     <footer class="site-footer">
-      <p>自分用 学習サイト / Math Tools &amp; 体系数学ハブ v0.1</p>
+      <p>自分用 学習サイト / Math Tools &amp; 体系数学ハブ v0.2</p>
       <p>&copy; 2025</p>
     </footer>
 
