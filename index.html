@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Math Tools & 体系数学ハブ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- デザイン用CSS（中身は後で作る） -->
+    <!-- デザイン用CSS -->
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -37,71 +37,342 @@
       <section id="tools" class="section section-tools">
         <h2>ツール</h2>
         <p class="section-lead">
-          ここから電卓や単位換算ツールにアクセスできます。最初はメニューだけ作っておき、あとから機能を追加していきます。
+          電卓や単位換算をまとめて使えるゾーンです。カードの「開く」を押すとツールが展開されます。
         </p>
 
         <div class="card-grid">
           <!-- 電卓 -->
           <article class="card tool-card" data-tool="calculator">
             <h3>電卓（四則演算）</h3>
-            <p>＋ − × ÷ の基本的な計算用ツール。</p>
-            <button class="card-button" type="button">
-              開く（今後実装予定）
+            <p>＋ − × ÷ とかかっこ () を含む基本的な計算用ツール。</p>
+            <button class="card-button js-toggle-tool" type="button">
+              開く
             </button>
+            <div class="tool-body" hidden>
+              <div class="tool-row">
+                <label for="calculator-expression">計算式</label>
+                <input
+                  id="calculator-expression"
+                  type="text"
+                  inputmode="decimal"
+                  placeholder="例: 1+2*3 / (4-0.5)"
+                />
+                <small>数字と + - * / ( ) . が使えます。</small>
+              </div>
+              <button
+                id="calculator-eval-button"
+                class="primary-button"
+                type="button"
+              >
+                計算する
+              </button>
+              <div class="tool-result" id="calculator-result">
+                結果：-
+              </div>
+              <p class="tool-note">
+                ※ 式が長くなりすぎると誤差が出ることがあります。
+              </p>
+            </div>
           </article>
 
           <!-- 分数・小数・百分率 -->
-          <article class="card tool-card" data-tool="fraction-decimal-percent">
+          <article
+            class="card tool-card"
+            data-tool="fraction-decimal-percent"
+          >
             <h3>分数 ⇔ 小数 ⇔ ％ 変換</h3>
-            <p>0.75 ⇔ 3/4 ⇔ 75% などの変換をサポート。</p>
-            <button class="card-button" type="button">
-              開く（今後実装予定）
+            <p>0.75 ⇔ 3/4 ⇔ 75% みたいな変換を一気に。</p>
+            <button class="card-button js-toggle-tool" type="button">
+              開く
             </button>
+            <div class="tool-body" hidden>
+              <div class="tool-row">
+                <label for="fraction-input">分数（例: 3/4）</label>
+                <div class="inline-row">
+                  <input
+                    id="fraction-input"
+                    type="text"
+                    placeholder="例: 3/4"
+                  />
+                  <button
+                    id="fraction-from-fraction"
+                    class="primary-button"
+                    type="button"
+                  >
+                    この分数から変換
+                  </button>
+                </div>
+              </div>
+
+              <div class="tool-row">
+                <label for="decimal-input">小数（例: 0.75）</label>
+                <div class="inline-row">
+                  <input
+                    id="decimal-input"
+                    type="number"
+                    step="any"
+                    placeholder="例: 0.75"
+                  />
+                  <button
+                    id="fraction-from-decimal"
+                    class="primary-button"
+                    type="button"
+                  >
+                    この小数から変換
+                  </button>
+                </div>
+              </div>
+
+              <div class="tool-row">
+                <label for="percent-input">百分率（％）</label>
+                <div class="inline-row">
+                  <input
+                    id="percent-input"
+                    type="number"
+                    step="any"
+                    placeholder="例: 75"
+                  />
+                  <span>%</span>
+                  <button
+                    id="fraction-from-percent"
+                    class="primary-button"
+                    type="button"
+                  >
+                    この％から変換
+                  </button>
+                </div>
+              </div>
+
+              <div class="tool-message" id="fraction-message"></div>
+            </div>
           </article>
 
           <!-- 長さの単位換算 -->
           <article class="card tool-card" data-tool="length-converter">
             <h3>長さの単位換算</h3>
-            <p>mm / cm / m / km の変換。</p>
-            <button class="card-button" type="button">
-              開く（今後実装予定）
+            <p>mm / cm / m / km の相互変換。</p>
+            <button class="card-button js-toggle-tool" type="button">
+              開く
             </button>
+            <div class="tool-body" hidden>
+              <div class="converter-grid">
+                <div class="tool-row">
+                  <label for="length-value">値</label>
+                  <input
+                    id="length-value"
+                    type="number"
+                    step="any"
+                    placeholder="例: 1200"
+                  />
+                </div>
+                <div class="tool-row">
+                  <label for="length-from">変換前の単位</label>
+                  <select id="length-from">
+                    <option value="mm">mm</option>
+                    <option value="cm" selected>cm</option>
+                    <option value="m">m</option>
+                    <option value="km">km</option>
+                  </select>
+                </div>
+                <div class="tool-row">
+                  <label for="length-to">変換後の単位</label>
+                  <select id="length-to">
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="m" selected>m</option>
+                    <option value="km">km</option>
+                  </select>
+                </div>
+                <button
+                  id="length-convert-button"
+                  class="primary-button"
+                  type="button"
+                >
+                  変換する
+                </button>
+              </div>
+              <div class="tool-result" id="length-result">結果：-</div>
+            </div>
           </article>
 
           <!-- 面積の単位換算 -->
           <article class="card tool-card" data-tool="area-converter">
             <h3>面積の単位換算</h3>
-            <p>cm² / m² / km² などの面積換算。</p>
-            <button class="card-button" type="button">
-              開く（今後実装予定）
+            <p>cm² / m² / km² の変換。</p>
+            <button class="card-button js-toggle-tool" type="button">
+              開く
             </button>
+            <div class="tool-body" hidden>
+              <div class="converter-grid">
+                <div class="tool-row">
+                  <label for="area-value">値</label>
+                  <input
+                    id="area-value"
+                    type="number"
+                    step="any"
+                    placeholder="例: 5000"
+                  />
+                </div>
+                <div class="tool-row">
+                  <label for="area-from">変換前の単位</label>
+                  <select id="area-from">
+                    <option value="cm2">cm²</option>
+                    <option value="m2" selected>m²</option>
+                    <option value="km2">km²</option>
+                  </select>
+                </div>
+                <div class="tool-row">
+                  <label for="area-to">変換後の単位</label>
+                  <select id="area-to">
+                    <option value="cm2">cm²</option>
+                    <option value="m2">m²</option>
+                    <option value="km2" selected>km²</option>
+                  </select>
+                </div>
+                <button
+                  id="area-convert-button"
+                  class="primary-button"
+                  type="button"
+                >
+                  変換する
+                </button>
+              </div>
+              <div class="tool-result" id="area-result">結果：-</div>
+            </div>
           </article>
 
           <!-- 体積の単位換算 -->
           <article class="card tool-card" data-tool="volume-converter">
             <h3>体積・容積の単位換算</h3>
-            <p>mL / L / m³ などの換算。</p>
-            <button class="card-button" type="button">
-              開く（今後実装予定）
+            <p>mL / L / m³ の変換。</p>
+            <button class="card-button js-toggle-tool" type="button">
+              開く
             </button>
+            <div class="tool-body" hidden>
+              <div class="converter-grid">
+                <div class="tool-row">
+                  <label for="volume-value">値</label>
+                  <input
+                    id="volume-value"
+                    type="number"
+                    step="any"
+                    placeholder="例: 1500"
+                  />
+                </div>
+                <div class="tool-row">
+                  <label for="volume-from">変換前の単位</label>
+                  <select id="volume-from">
+                    <option value="ml">mL</option>
+                    <option value="l" selected>L</option>
+                    <option value="m3">m³</option>
+                  </select>
+                </div>
+                <div class="tool-row">
+                  <label for="volume-to">変換後の単位</label>
+                  <select id="volume-to">
+                    <option value="ml" selected>mL</option>
+                    <option value="l">L</option>
+                    <option value="m3">m³</option>
+                  </select>
+                </div>
+                <button
+                  id="volume-convert-button"
+                  class="primary-button"
+                  type="button"
+                >
+                  変換する
+                </button>
+              </div>
+              <div class="tool-result" id="volume-result">結果：-</div>
+            </div>
           </article>
 
           <!-- 質量の単位換算 -->
           <article class="card tool-card" data-tool="mass-converter">
             <h3>質量の単位換算</h3>
-            <p>g / kg の換算。</p>
-            <button class="card-button" type="button">
-              開く（今後実装予定）
+            <p>g / kg の変換。</p>
+            <button class="card-button js-toggle-tool" type="button">
+              開く
             </button>
+            <div class="tool-body" hidden>
+              <div class="converter-grid">
+                <div class="tool-row">
+                  <label for="mass-value">値</label>
+                  <input
+                    id="mass-value"
+                    type="number"
+                    step="any"
+                    placeholder="例: 500"
+                  />
+                </div>
+                <div class="tool-row">
+                  <label for="mass-from">変換前の単位</label>
+                  <select id="mass-from">
+                    <option value="g" selected>g</option>
+                    <option value="kg">kg</option>
+                  </select>
+                </div>
+                <div class="tool-row">
+                  <label for="mass-to">変換後の単位</label>
+                  <select id="mass-to">
+                    <option value="g">g</option>
+                    <option value="kg" selected>kg</option>
+                  </select>
+                </div>
+                <button
+                  id="mass-convert-button"
+                  class="primary-button"
+                  type="button"
+                >
+                  変換する
+                </button>
+              </div>
+              <div class="tool-result" id="mass-result">結果：-</div>
+            </div>
           </article>
 
           <!-- 速さの単位換算 -->
           <article class="card tool-card" data-tool="speed-converter">
             <h3>速さの単位換算</h3>
             <p>m/s ⇔ km/h の変換。</p>
-            <button class="card-button" type="button">
-              開く（今後実装予定）
+            <button class="card-button js-toggle-tool" type="button">
+              開く
             </button>
+            <div class="tool-body" hidden>
+              <div class="converter-grid">
+                <div class="tool-row">
+                  <label for="speed-value">値</label>
+                  <input
+                    id="speed-value"
+                    type="number"
+                    step="any"
+                    placeholder="例: 10"
+                  />
+                </div>
+                <div class="tool-row">
+                  <label for="speed-from">変換前の単位</label>
+                  <select id="speed-from">
+                    <option value="ms" selected>m/s</option>
+                    <option value="kmh">km/h</option>
+                  </select>
+                </div>
+                <div class="tool-row">
+                  <label for="speed-to">変換後の単位</label>
+                  <select id="speed-to">
+                    <option value="ms">m/s</option>
+                    <option value="kmh" selected>km/h</option>
+                  </select>
+                </div>
+                <button
+                  id="speed-convert-button"
+                  class="primary-button"
+                  type="button"
+                >
+                  変換する
+                </button>
+              </div>
+              <div class="tool-result" id="speed-result">結果：-</div>
+            </div>
           </article>
         </div>
       </section>
@@ -113,7 +384,7 @@
           中学数学の主な単元をまとめています。詳しい内容ページや公式の整理は、今後少しずつ追加していきます。
         </p>
 
-        <!-- 学年タブ風ボタン（切り替えはJSで後から実装してもOK） -->
+        <!-- 学年タブ風ボタン -->
         <div class="grade-tabs">
           <button class="grade-tab is-active" data-grade="grade1" type="button">
             中1
@@ -231,7 +502,7 @@
       <p>&copy; 2025</p>
     </footer>
 
-    <!-- 挙動用JS（タブ切り替えやツールの実装を後で書く） -->
+    <!-- 挙動用JS -->
     <script src="js/main.js"></script>
   </body>
 </html>
