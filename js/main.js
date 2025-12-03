@@ -1,4 +1,3 @@
-// メイン初期化
 document.addEventListener("DOMContentLoaded", () => {
   setupGradeTabs();
   setupToolToggles();
@@ -9,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupVolumeConverter();
   setupMassConverter();
   setupSpeedConverter();
+  setupTopicDetailModal();
 });
 
 /* ---------------------------
@@ -50,54 +50,119 @@ function setupToolToggles() {
 }
 
 /* ---------------------------
- * 電卓ツール
+ * 電卓ツール（ボタン＋直接入力）
  * -------------------------*/
 function setupCalculator() {
+  const exprDisplay = document.getElementById("calculator-expression-display");
+  const resultDisplay = document.getElementById("calculator-result-display");
   const input = document.getElementById("calculator-expression");
-  const button = document.getElementById("calculator-eval-button");
-  const resultEl = document.getElementById("calculator-result");
+  const keys = document.querySelector(".calculator-keys");
 
-  if (!input || !button || !resultEl) return;
+  if (!exprDisplay || !resultDisplay || !input || !keys) return;
 
-  function calc() {
-    const expr = input.value.trim();
-    if (!expr) {
-      resultEl.textContent = "結果：入力がありません。";
+  let expr = input.value || "";
+
+  function updateDisplays() {
+    const displayText = expr || "0";
+    exprDisplay.textContent = displayText
+      .replace(/\*/g, "×")
+      .replace(/\//g, "÷");
+  }
+
+  function showResultText(text) {
+    resultDisplay.textContent = text;
+  }
+
+  function showResultNumber(value) {
+    resultDisplay.textContent = "= " + formatNumber(value);
+  }
+
+  function clearResult() {
+    resultDisplay.textContent = "= 0";
+  }
+
+  function calculate() {
+    const raw = expr.trim();
+    if (!raw) {
+      clearResult();
       return;
     }
 
-    // 安全のため、使える文字を制限
-    if (!/^[0-9+\-*/().\s]+$/.test(expr)) {
-      resultEl.textContent =
-        "結果：数字と + - * / ( ) . だけ使用できます。";
+    // 使える文字を絞る
+    if (!/^[0-9+\-*/().\s]+$/.test(raw)) {
+      showResultText("式に使えない文字があります");
       return;
     }
 
     let value;
     try {
-      // evalの代わりに Function を使って式を評価
-      // ※ ユーザー入力は上で絞っているので、ここではOKとする
-      // eslint-disable-next-line no-new-func
-      value = Function('"use strict"; return (' + expr + ");")();
+      const fn = new Function('"use strict"; return (' + raw + ");");
+      value = fn();
     } catch (e) {
-      resultEl.textContent = "結果：式が正しくありません。";
+      showResultText("式が正しくありません");
       return;
     }
 
     if (typeof value !== "number" || !isFinite(value)) {
-      resultEl.textContent = "結果：計算できませんでした。";
+      showResultText("計算できません");
       return;
     }
 
-    resultEl.textContent = "結果：" + formatNumber(value);
+    showResultNumber(value);
   }
 
-  button.addEventListener("click", calc);
-  input.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      calc();
+  // ボタンクリック
+  keys.addEventListener("click", (event) => {
+    const btn = event.target.closest("button");
+    if (!btn) return;
+
+    const action = btn.dataset.action;
+    const value = btn.dataset.value;
+
+    if (action === "clear") {
+      expr = "";
+      input.value = "";
+      updateDisplays();
+      clearResult();
+      return;
+    }
+
+    if (action === "delete") {
+      expr = expr.slice(0, -1);
+      input.value = expr;
+      updateDisplays();
+      return;
+    }
+
+    if (action === "eval") {
+      calculate();
+      return;
+    }
+
+    if (value) {
+      expr += value;
+      input.value = expr;
+      updateDisplays();
     }
   });
+
+  // 入力欄からの編集
+  input.addEventListener("input", () => {
+    expr = input.value;
+    updateDisplays();
+  });
+
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      expr = input.value;
+      calculate();
+    }
+  });
+
+  // 初期表示
+  updateDisplays();
+  clearResult();
 }
 
 /* ---------------------------
@@ -400,6 +465,60 @@ function setupSpeedConverter() {
       ms: "m/s",
       kmh: "km/h"
     }
+  });
+}
+
+/* ---------------------------
+ * 単元詳細モーダル（準備段階）
+ * -------------------------*/
+function setupTopicDetailModal() {
+  const modal = document.getElementById("topic-modal");
+  if (!modal) return;
+
+  const titleEl = document.getElementById("topic-modal-title");
+  const summaryEl = document.getElementById("topic-modal-summary");
+  const closeBtn = modal.querySelector(".modal-close");
+  const backdrop = modal.querySelector(".modal-backdrop");
+  const body = document.body;
+
+  function openModal(title, summary) {
+    if (titleEl) {
+      titleEl.textContent = title || "単元詳細";
+    }
+    if (summaryEl) {
+      summaryEl.textContent =
+        summary ||
+        "この単元の概要やポイントは、これから追加していく予定です。";
+    }
+    modal.classList.add("is-open");
+    body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    body.style.overflow = "";
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeModal);
+  }
+  if (backdrop) {
+    backdrop.addEventListener("click", closeModal);
+  }
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.classList.contains("is-open")) {
+      closeModal();
+    }
+  });
+
+  const buttons = document.querySelectorAll(".topic-detail-button");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".topic-card");
+      const title = card?.querySelector("h4")?.textContent?.trim();
+      const summary = card?.querySelector("p")?.textContent?.trim();
+      openModal(title, summary);
+    });
   });
 }
 
